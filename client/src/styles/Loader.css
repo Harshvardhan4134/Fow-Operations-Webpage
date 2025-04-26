@@ -1,0 +1,139 @@
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000; /* Changed to black background */
+  z-index: 9999;
+  transition: opacity 1.2s ease-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.loader-content {
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* One letter gap between words */
+}
+
+/* When Operations dashes into Flow, reduce the gap */
+.flow-glitch + .operations-show {
+  margin-left: -8px; /* Increased overlap when dashing */
+}
+
+.flow-text, .operations-text {
+  color: #ffffff;
+  font-size: 2.5rem; /* Smaller text */
+  font-weight: 300; /* Changed to light weight like the main website headers */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Matching main site font */
+  letter-spacing: 0.02em;
+  position: relative;
+  opacity: 0;
+  text-transform: none; /* Changed from uppercase to allow custom capitalization */
+}
+
+.flow-text {
+  transform: translateX(100px); /* Come from right */
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.flow-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.operations-text {
+  transform: translateX(100px); /* Come from right */
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 0.02em; /* Initial letter spacing */
+}
+
+.operations-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Operations dash animation - dashes and STAYS there */
+.operations-dash {
+  animation: dash-animation 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+}
+
+@keyframes dash-animation {
+  0% {
+    transform: translateX(0);
+    letter-spacing: 0.02em;
+  }
+  70% {
+    transform: translateX(-17px);
+    letter-spacing: -0.05em;
+  }
+  100% {
+    /* Stay close to Flow */
+    transform: translateX(-15px);
+    letter-spacing: -0.04em;
+  }
+}
+
+/* Glitch effect for Flow text - stays displaced after glitch */
+.flow-glitch {
+  animation: glitch 0.4s linear forwards;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px, 3px);
+  }
+  40% {
+    transform: translate(-5px, -3px);
+  }
+  60% {
+    transform: translate(3px, 3px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    /* Final position after glitch - stays displaced */
+    transform: translate(2px, 0);
+  }
+}
+
+/* Letter pulsing effect for operations */
+.operations-after-dash {
+  animation: letter-pulse 2s ease-in-out infinite;
+}
+
+@keyframes letter-pulse {
+  0%, 100% {
+    letter-spacing: -0.04em;
+  }
+  50% {
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (max-width: 768px) {
+  .flow-text, .operations-text {
+    font-size: 1.8rem;
+  }
+  
+  .loader-text-container {
+    gap: 8px; /* Smaller gap on mobile */
+  }
+} 
